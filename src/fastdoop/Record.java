@@ -38,11 +38,11 @@ public class Record implements Serializable {
 	private int startValue, endValue;
 
 	public String getKey() {
-		return new String(buffer, startKey, (endKey - startKey + 1));
+		return new String(buffer, startKey, getKeyLength());
 	}
 
 	public String getValue() {
-		return new String(buffer, startValue, (endValue - startValue + 1));
+		return new String(buffer, startValue, getValueLength());
 	}
 
 	@Override
@@ -90,4 +90,11 @@ public class Record implements Serializable {
 		this.endValue = endValue;
 	}
 
+	public int getKeyLength() {
+		return endKey - startKey + 1;
+	}
+	
+	public int getValueLength() {
+		return endValue - startValue + 1;
+	}
 }
