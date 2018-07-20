@@ -6,9 +6,9 @@ FASTdoop is a generic Hadoop library for the management of FASTA and FASTQ files
 three input reader formats with associated record readers. These readers are optimized to
 read data efficiently from FASTA/FASTQ files in a variety of settings. They are:
 
-- FASTAshortInputFileFormat: optimized to read a collection of short sequences from a FASTA file.
-- FASTAlongInputFileFormat: optimized to read a very large sequence (even gigabytes long) from a FASTA file.
-- FASTQInputFileFormat: optimized to read a collection of short sequences from a FASTQ file.
+* FASTAshortInputFileFormat: optimized to read a collection of short sequences from a FASTA file.
+* FASTAlongInputFileFormat: optimized to read a very large sequence (even gigabytes long) from a FASTA file.
+* FASTQInputFileFormat: optimized to read a collection of short sequences from a FASTQ file.
 
 
 ### Using FASTdoop on Spark
@@ -69,10 +69,10 @@ starting from the source files. In this case, the building of FASTdoop would not
 as it can be managed using the provided Maven project. In this case, it is only required to clone the repository and load the project inside Eclipse or another IDE. Then, the FASTdoop jar could be created by issuing the Maven install procedure (w.g., clicking on the ```Run As > Maven install``` option if using Eclipse).
 
 The Maven dependecies are:
-- Apache Hadoop Common 2.7.0
-- Apache Hadoop MapReduce Core 2.7.0
-- Apache Spark Core 2.3.0
-- Apache Spark SQL 2.3.0
+* [Apache Hadoop Common 2.7.0](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common/2.7.0)
+* [Apache Hadoop MapReduce Core 2.7.0](https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce-client-core/2.7.0)
+* [Apache Spark Core 2.3.0](https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.11/2.3.0)
+* [Apache Spark SQL 2.3.0](https://mvnrepository.com/artifact/org.apache.spark/spark-sql_2.11/2.3.0)
 
 The building process can also be issued via terminal, by moving in the FASTdoop main directory and running the following command-line:
 
@@ -120,4 +120,30 @@ Example 3:  Print on screen all the short sequences contained in fastdoop-1.0/da
 
 ```console
 java -cp FASTdoop-1.0.jar fastdoop.test.TestFQ data/short.fastq
+```
+
+## Datasets
+
+The datasets used for our experiments can be downloaded from the following links: 
+
+* [Datasets used for testing FASTAlongInputFileFormat (about 12 GB)](https://goo.gl/PBACD2)
+* [Datasets used for testing FASTAshortInputFileFormat (about 8 GB)](https://goo.gl/34MYxI)
+* [Datasets used for testing FASTQInputFileFormat (about 10 GB)](https://goo.gl/ZmJs7A)
+
+
+## Citation
+
+If you have used FASTdoop for research purposes, please cite the paper related to this software as reference in your publication. Use the following BibTex entry to do that.
+
+```
+@article{doi:10.1093/bioinformatics/btx010,
+author = {Ferraro Petrillo, Umberto and Roscigno, Gianluca and Cattaneo, Giuseppe and Giancarlo, Raffaele},
+title = {FASTdoop: a versatile and efficient library for the input of FASTA and FASTQ files for MapReduce Hadoop bioinformatics applications},
+journal = {Bioinformatics},
+volume = {33},
+number = {10},
+pages = {1575-1577},
+year = {2017},
+doi = {10.1093/bioinformatics/btx010},
+}
 ```
