@@ -23,6 +23,7 @@ SparkContext sc = spark.sparkContext();
 JavaSparkContext jsc = new JavaSparkContext(sc);
 
 Configuration inputConf = jsc.hadoopConfiguration();
+inputConf.setInt("k", 50);
 
 String inputPath = "data/big.fasta";
 
@@ -38,7 +39,7 @@ for (PartialSequence sequence : dSequences.collect()) {
 }
 ```
 
-Instead, this is an example where a file containing one short sequence encoded in FASTA format is loaded using the FASTdoop class _FASTAshortInputFileFormat_:
+Instead, this is an example where a file containing one or more short sequences encoded in FASTA format are loaded using the FASTdoop class _FASTAshortInputFileFormat_:
 
 ```java
 SparkSession spark = SparkSession.builder().master("local[*]").appName("FASTdoop Test Short").getOrCreate();	
@@ -46,6 +47,7 @@ SparkContext sc = spark.sparkContext();
 JavaSparkContext jsc = new JavaSparkContext(sc);
 
 Configuration inputConf = jsc.hadoopConfiguration();
+inputConf.setInt("look_ahead_buffer_size", 4096);
 
 String inputPath = "data/short.fasta";
 
@@ -60,6 +62,31 @@ for (Record sequence : dSequences.collect()) {
 	System.out.println("Sequence: " + sequence.getValue());
 }
 ```
+
+Finally, this is an example where a file containing one or more sequences encoded in FASTQ format are loaded using the FASTdoop class _FASTQInputFileFormat_:
+
+```java
+SparkSession spark = SparkSession.builder().master("local[*]").appName("FASTdoop Test FASTQ").getOrCreate();	
+SparkContext sc = spark.sparkContext();
+JavaSparkContext jsc = new JavaSparkContext(sc);
+
+Configuration inputConf = jsc.hadoopConfiguration();
+inputConf.setInt("look_ahead_buffer_size", 2048);
+
+String inputPath = "data/small.fastq";
+
+JavaPairRDD<Text, QRecord> dSequences2 = jsc.newAPIHadoopFile(inputPath, 
+		FASTQInputFileFormat.class, Text.class, QRecord.class, inputConf);
+
+/* We drop the keys of the new RDD since they are not used */
+JavaRDD<QRecord> dSequences = dSequences2.values();
+
+for (QRecord sequence : dSequences.collect()) {
+	System.out.println("ID: " + sequence.getKey());
+	System.out.println("Sequence: " + sequence.getValue());
+}
+```
+
 
 ### Building FASTdoop
 
