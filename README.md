@@ -54,12 +54,12 @@ String inputPath = "data/short.fasta";
 JavaPairRDD<Text, Record> dSequences2 = jsc.newAPIHadoopFile(inputPath, 
 		FASTAshortInputFileFormat.class, Text.class, Record.class, inputConf);
 	
-/* We drop the keys of the new RDD since they are not used, than a PairRDD <seqID, sequence> is created */
+/* We drop the keys of the new RDD since they are not used, than a PairRDD (ID, sequence) is created */
 JavaPairRDD<String, String> dSequences = dSequences2.values().mapToPair(record -> new Tuple2<>(record.getKey(), record.getValue()));
 
-for (Tuple2<String, String> sequence : dSequences.collect()) {
-	System.out.println("ID: " + sequence._1);
-	System.out.println("Sequence: " + sequence._2);
+for (Tuple2<String, String> id_sequence : dSequences.collect()) {
+	System.out.println("ID: " + id_sequence._1);
+	System.out.println("Sequence: " + id_sequence._2);
 }
 ```
 
