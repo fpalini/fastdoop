@@ -11,11 +11,17 @@
   <url>http://www.di-srv.unisa.it/FASTdoop/</url>
 
   <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+	</build>
+
   <dependencies>
-    
+
     <!-- https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common -->
 	<dependency>
 	    <groupId>org.apache.hadoop</groupId>
