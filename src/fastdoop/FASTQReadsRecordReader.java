@@ -112,6 +112,8 @@ public class FASTQReadsRecordReader extends RecordReader<Text, QRecord> {
 
 		currKey = new Text("null");
 		currRecord = new QRecord();
+		currRecord.setStartSplit(split.getStart());
+		currRecord.setFileName(split.getPath().getName());
 
 		/*
 		 * We read the whole content of the split in memory using
@@ -179,6 +181,7 @@ public class FASTQReadsRecordReader extends RecordReader<Text, QRecord> {
 		boolean nextsplitSecondHeader = false;
 
 		currRecord.setStartKey(posBuffer);
+		currRecord.setSplitOffset(posBuffer);
 
 		/*
 		 * We look for the next short sequence my moving posBuffer until a

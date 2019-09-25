@@ -118,6 +118,8 @@ public class ShortReadsRecordReader extends RecordReader<Text, Record> {
 
 		currKey = new Text("null");
 		currRecord = new Record();
+		currRecord.setStartSplit(split.getStart());
+		currRecord.setFileName(split.getPath().getName());
 
 		/*
 		 * We read the whole content of the split in memory using
@@ -166,6 +168,7 @@ public class ShortReadsRecordReader extends RecordReader<Text, Record> {
 		boolean nextsplitValue = false;
 
 		currRecord.setStartKey(posBuffer);
+		currRecord.setSplitOffset(posBuffer);
 
 		/*
 		 * We look for the next short sequence my moving posBuffer until a

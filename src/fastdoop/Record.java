@@ -36,6 +36,8 @@ public class Record implements Serializable {
 	private byte[] buffer;
 	private int startKey, endKey;
 	private int startValue, endValue;
+	private long startSplit, splitOffset;
+	private String fileName;
 
 	public String getKey() {
 		return new String(buffer, startKey, getKeyLength());
@@ -96,5 +98,33 @@ public class Record implements Serializable {
 	
 	public int getValueLength() {
 		return endValue - startValue + 1;
+	}
+
+	public void setStartSplit(long startSplit) {
+		this.startSplit = startSplit;
+	}
+
+	public long getStartSplit() {
+		return startSplit;
+	}
+
+	public void setSplitOffset(long offset) {
+		this.splitOffset = offset;
+	}
+
+	public long getSplitOffset() {
+		return splitOffset;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public long getFileOffset() {
+		return startSplit + splitOffset;
 	}
 }
