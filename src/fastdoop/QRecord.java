@@ -42,7 +42,7 @@ public class QRecord extends Record {
 
 	@Override
 	public String toString() {
-		return "@" + getKey() + "\n" + getValue() + "\n+" + getKey2() + "\n" + getQuality() + "\n";
+		return "@" + getKey() + "\n" + getValue() + "\n+" + getKey2() + "\n" + getQuality();
 	}
 
 	public int getStartKey2() {
