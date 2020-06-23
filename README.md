@@ -30,12 +30,12 @@ String inputPath = "data/big.fasta";
 JavaPairRDD<Text, PartialSequence> dSequences2 = jsc.newAPIHadoopFile(inputPath, 
 		FASTAlongInputFileFormat.class, Text.class, PartialSequence.class, inputConf);
 
-/* We drop the keys of the new RDD since they are not used */
-JavaRDD<PartialSequence> dSequences = dSequences2.values();
+/* We drop the keys of the new RDD since they are not used, than a PairRDD (ID, sequence) is created */
+JavaPairRDD<String, String> dSequences = dSequences2.values().mapToPair(record -> new Tuple2<>(record.getKey(), record.getValue()));
 
-for (PartialSequence sequence : dSequences.collect()) {
-	System.out.println("ID: " + sequence.getKey());
-	System.out.println("Sequence: " + sequence.getValue());
+for (Tuple2<String, String> id_sequence : dSequences.collect()) {
+	System.out.println("ID: " + id_sequence._1);
+	System.out.println("Sequence: " + id_sequence._2);
 }
 ```
 
@@ -78,12 +78,12 @@ String inputPath = "data/small.fastq";
 JavaPairRDD<Text, QRecord> dSequences2 = jsc.newAPIHadoopFile(inputPath, 
 		FASTQInputFileFormat.class, Text.class, QRecord.class, inputConf);
 
-/* We drop the keys of the new RDD since they are not used */
-JavaRDD<QRecord> dSequences = dSequences2.values();
+/* We drop the keys of the new RDD since they are not used, than a PairRDD (ID, sequence) is created */
+JavaPairRDD<String, String> dSequences = dSequences2.values().mapToPair(record -> new Tuple2<>(record.getKey(), record.getValue()));
 
-for (QRecord sequence : dSequences.collect()) {
-	System.out.println("ID: " + sequence.getKey());
-	System.out.println("Sequence: " + sequence.getValue());
+for (Tuple2<String, String> id_sequence : dSequences.collect()) {
+	System.out.println("ID: " + id_sequence._1);
+	System.out.println("Sequence: " + id_sequence._2);
 }
 ```
 
